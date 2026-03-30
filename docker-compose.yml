@@ -9,8 +9,8 @@ services:
     environment:
       # Use an environment variable to place the SQLite DB inside a persistent volume
       - SQLITE_DB_PATH=/app/data/local.db
-      # For local testing, you can ignore the secret or define it here
-      # - NORTH_AUTH_SECRET=my_secure_secret
+      # For secure prod testing, the secret is explicitly defined here
+      - NORTH_AUTH_SECRET=my-super-secret-token-1234
     volumes:
       - mcp-data:/app/data
     restart: unless-stopped
