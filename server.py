@@ -67,6 +67,11 @@ def create_server(use_auth: bool) -> FastMCP:
         except Exception as e:
             return f"Error executing query: {str(e)}"
 
+    @mcp.tool()
+    def hello_world() -> str:
+        """A simple custom tool for printing hello world."""
+        return "Hello World!"
+
     return mcp
 
 
