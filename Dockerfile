@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install system dependencies if required natively by python packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
+    build-essential git \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file first to leverage Docker cache
