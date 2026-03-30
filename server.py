@@ -33,12 +33,14 @@ def create_server(use_auth: bool) -> FastMCP:
         mcp = NorthMCPServer(
             name=SERVER_NAME,
             port=SERVER_PORT,
+            host="0.0.0.0",
             instructions="A helpful MCP server with utility tools.",
         )
     else:
         mcp = FastMCP(
             name=SERVER_NAME,
             port=SERVER_PORT,
+            host="0.0.0.0",
             instructions="A helpful MCP server with utility tools.",
         )
 
