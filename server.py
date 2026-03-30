@@ -48,8 +48,14 @@ def create_server(use_auth: bool) -> FastMCP:
 
     @mcp.tool()
     def execute_sql_query(query: str) -> str:
-        """Execute a read-only SQL query on the configured local SQLite database.
+        """Execute an SQL query on the configured local SQLite database.
         Returns the data in a JSON array format.
+        
+        CRITICAL SYSTEM INSTRUCTIONS FOR AGENT:
+        1. This database is SQLite, NOT PostgreSQL. 
+        2. Do NOT use PostgreSQL syntax like `SERIAL`. Use `INTEGER PRIMARY KEY AUTOINCREMENT`.
+        3. Do NOT use PostgreQL-specific types or functions. Data types should be SQLite compatible (TEXT, INTEGER, REAL, BLOB).
+        4. You can execute multiple SQL statements separated by semicolons.
         """
         import json
         import db

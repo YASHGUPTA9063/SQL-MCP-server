@@ -18,7 +18,15 @@ def execute_query(query: str) -> List[Dict[str, Any]]:
         # Ensure rows act like dictionaries for easy access and serialization
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute(query)
+        try:
+            cursor.execute(query)
+        except (sqlite3.Warning, sqlite3.ProgrammingError) as e:
+            # Fallback for multiple statements separated by semicolons
+            if "one statement" in str(e).lower() or "multiple" in str(e).lower():
+                cursor.executescript(query)
+                conn.commit()
+                return [{"status": "Multiple SQL statements executed successfully (script mode)."}]
+            raise e
         
         if cursor.description is None:
             # Query did not return rows (e.g. INSERT, UPDATE)
