@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mcp-server:
+    build: .
+    container_name: sql-mcp-server
+    ports:
+      - "5222:5222"
+    environment:
+      # Use an environment variable to place the SQLite DB inside a persistent volume
+      - SQLITE_DB_PATH=/app/data/local.db
+      # For local testing, you can ignore the secret or define it here
+      # - NORTH_AUTH_SECRET=my_secure_secret
+    volumes:
+      - mcp-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  mcp-data:
